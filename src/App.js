@@ -7,21 +7,18 @@ export const store = React.createContext()
 const App = () => {
   const [data, setData] = useState([
     {
-      id:1,
       student: "Ravi",
       location: "Mumbai",
       teacher: "Madhu",
       age: 50
     },
     {
-      id:2,
       student: "Vinay",
       location: "Pune",
       teacher: "Kiran",
       age: 65
     },
     {
-      id:3,
       student: "Raju",
       location: "Kolkata",
       teacher: "Bala",
@@ -33,7 +30,7 @@ const App = () => {
     <store.Provider value={[data, setData]}> 
       <Student />
       <Teacher />
-      <AdminDashboard />
+      <AdminDashboard datum={data}/>
     </store.Provider>
   )
 }

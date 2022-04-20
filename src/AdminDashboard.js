@@ -1,24 +1,38 @@
 import React, { useContext, useState } from "react";
 import { store } from "./App";
 
-const AdminDashboard = () => {
+const AdminDashboard = ({datum}) => {
   const [data, setData] = useContext(store);
-  const [text, setText] = useState(false)
+  const [text, setText] = useState({})
 
 const handleSubmit = (e) => {
   e.preventDefault();
-  setText([...data, ({
+  setData([...datum, ({
       student: text.student,
       location: text.location,
       teacher: text.teacher,
-      age: text.age
+      age: Math.floor(text.age)
   })]);  
+  
+  setText("")
+  
+  console.log(text)
 }
 
 const handleUpdate = (id) =>{
   console.log("clicked")
-  const sample = data.find((item)=> item.id==id);
-  setText(sample);  
+  // const sample = data.find((item)=> item.index==id+1);
+  for(var i in datum){
+    if(datum.indexOf(datum[i])==id){
+      setText(datum[i])
+    }
+    
+  }
+  
+  // setText({sample})
+  // text.student = "jags"
+  // console.log(text)
+    
 }
 
 const handleDelete = (id) => {
@@ -94,13 +108,13 @@ const handleChange = (e) => {
         <tbody>
           {data.map((item, index) => {
             return (
-              <tr key={item.id}>
+              <tr key={index+1}>
                 <td>{item.student}</td>
                 <td>{item.location}</td>
                 <td>{item.teacher}</td>
                 <td>{item.age}</td>
                 <td>
-                  <button onClick={()=>handleUpdate(item.id)} className="btn btn-primary">Edit</button>{" "}
+                  <button onClick={()=>handleUpdate(index)} className="btn btn-primary">Edit</button>{" "}
                   <button onClick={()=>handleDelete(index)} className="btn btn-success">Delete</button>
                 </td>
               </tr>
